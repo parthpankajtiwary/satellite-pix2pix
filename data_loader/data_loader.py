@@ -1,14 +1,26 @@
 from base.base_data_loader import BaseDataLoader
+from keras.preprocessing.image import ImageDataGenerator
 
 class DataLoader(BaseDataLoader):
     def __init__(self, config):
-        super(ConvMnistDataLoader, self).__init__(config)
-        (self.X_train, self.y_train), (self.X_test, self.y_test) = mnist.load_data()
-        self.X_train = self.X_train.reshape((-1, 28, 28, 1))
-        self.X_test = self.X_test.reshape((-1, 28, 28, 1))
+        super(DataLoader, self).__init__(config)
+        # self.labels = labels  # array of labels
+        # self.images_paths = images_paths  # array of image paths
+        # self.dim = image_dimensions  # image dimensions
+        # self.batch_size = batch_size  # batch size
+        # self.shuffle = shuffle  # shuffle bool
+        # self.augment = augment  # augment data bool
+        # self.on_epoch_end()
 
-    def get_train_data(self):
-        return self.X_train, self.y_train
 
-    def get_test_data(self):
-        return self.X_test, self.y_test
+    def get_train_generator(self):
+        train_datagen = ImageDataGenerator()
+
+        train_generator = train_datagen.flow_from_directory(
+            'data/train/',
+            class_mode='binary'
+        )
+
+        return train_generator
+    # def get_test_generator(self):
+    #     return self.X_test, self.y_test

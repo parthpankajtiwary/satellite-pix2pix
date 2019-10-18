@@ -1,5 +1,4 @@
-from data_loader.simple_mnist_data_loader import SimpleMnistDataLoader
-from models.simple_mnist_model import SimpleMnistModel
+from data_loader.data_loader import DataLoader
 from trainers.simple_mnist_trainer import SimpleMnistModelTrainer
 from utils.config import process_config
 from utils.dirs import create_dirs
@@ -19,16 +18,20 @@ def main():
     create_dirs([config.callbacks.tensorboard_log_dir, config.callbacks.checkpoint_dir])
 
     print('Create the data generator.')
-    data_loader = SimpleMnistDataLoader(config)
+    data_loader = DataLoader(config)
 
-    print('Create the model.')
-    model = SimpleMnistModel(config)
+    while True:
+        images = next(data_loader.get_train_generator())
+        print(images)
 
-    print('Create the trainer')
-    trainer = SimpleMnistModelTrainer(model.model, data_loader.get_train_data(), config)
-
-    print('Start training the model.')
-    trainer.train()
+    # print('Create the model.')
+    # model = SimpleMnistModel(config)
+    #
+    # print('Create the trainer')
+    # trainer = SimpleMnistModelTrainer(model.model, data_loader.get_train_data(), config)
+    #
+    # print('Start training the model.')
+    # trainer.train()
 
 
 if __name__ == '__main__':

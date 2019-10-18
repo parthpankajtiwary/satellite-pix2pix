@@ -3,7 +3,7 @@
     "name": "conv_mnist_from_config"
   },
   "data_loader": {
-    "name": "conv_mnist_data_loader.ConvMnistDataLoader"
+    "name": "dataloader.DataLoader"
   },
   "model":{
     "name": "conv_mnist_model.ConvMnistModel",
